@@ -34,6 +34,23 @@ def dict_code():
     numItems = len(inventory)
 
 
+# https://selflearningsuccess.com/python-tuple/
+# 不可改變
+def tuple_code():
+    number = 1, 2, 3
+    print(number)
+    number = 1,
+    print(number)
+    number = (1, 2, 3)
+    print(number)
+    number = (1,)
+    print(number)
+
+    score = ('A+')
+    print("no ',' is str " + score)
+    print(type(score))
+
+
 def for_code():
     persons = ['張三', '李四', '王五', '趙六', '劉七', '孫八', '錢九', '畢十']
     for person in persons:
@@ -52,6 +69,13 @@ def for_code():
         print(tel[k])
     for v in tel.values():
         print(v)
+
+    # 一邊修改 copy()
+    users = {'Hans': 'active', 'Éléonore': 'inactive', '景太郎': 'active'}
+    # Strategy:  Iterate over a copy
+    for user, status in users.copy().items():
+        if status == 'inactive':
+            del users[user]
 
 
 def comprehension_code():
@@ -131,9 +155,48 @@ def slice_code():
     print(a_before[:3])
 
 
+# https://docs.python.org/zh-tw/3/tutorial/controlflow.html#for-statements
+def parameter_code():
+    # *name =>  tuple , **name => dict
+    def cheeseshop(kind, *arguments, **keywords):
+        print("-- Do you have any", kind, "?")
+        print("-- I'm sorry, we're all out of", kind)
+        # tuple
+        for arg in arguments:
+            print(arg)
+        print("-" * 40)
+        # dict
+        for kw in keywords:
+            print(kw, ":", keywords[kw])
+
+    cheeseshop("Limburger", "It's very runny, sir.",
+               "It's really very, VERY runny, sir.",
+               shopkeeper="Michael Palin",
+               client="John Cleese",
+               sketch="Cheese Shop Sketch")
+
+    print('-' * 40)
+
+    def parrot(voltage, state='a stiff', action='voom', type='Norwegian Blue'):
+        print("-- This parrot wouldn't", action, end=' ')
+        print("if you put", voltage, "volts through it.")
+        print("-- Lovely plumage, the", type)
+        print("-- It's", state, "!")
+
+    # test
+    parrot(1000)  # 1 positional argument
+    # parrot(voltage=1000)  # 1 keyword argument
+    # parrot(voltage=1000000, action='VOOOOOM')  # 2 keyword arguments
+    # parrot(action='VOOOOOM', voltage=1000000)  # 2 keyword arguments
+    # parrot('a million', 'bereft of life', 'jump')  # 3 positional arguments
+    # parrot('a thousand', state='pushing up the daisies')  # 1 positional, 1 keyword
+
+
 if __name__ == '__main__':
     # string_code()
     # for_code()
+    # tuple_code()
     # comprehension_code()
     # lambda_code()
-    slice_code()
+    # slice_code()
+    parameter_code()
