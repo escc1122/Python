@@ -8,14 +8,13 @@
     │   ├── api/                    # API 模組
     │   │   ├── __init__.py
     │   │   ├── routes.py           # 定義 API 端點 (Swagger 支持)
-    │   │   ├── docs.py             # Swagger 文檔生成
     │   │   └── auth.py             # 認證和授權
     │   │
     │   ├── core/                   # 核心業務邏輯
     │   │   ├── __init__.py
-    │   │   ├── models.py           # 資料庫模型 (ORM)
     │   │   ├── services.py         # 核心業務邏輯
-    │   │   └── third_party.py      # 與第三方 API 的通訊邏輯
+    │   │   ├── third_party.py      # 與第三方 API 的通訊邏輯
+    │   │   └── logger.py           # 日誌系統
     │   │
     │   ├── db/                     # 資料庫操作
     │   │   ├── __init__.py
@@ -25,8 +24,8 @@
     │   │
     │   ├── utils/                  # 工具類模組
     │   │   ├── __init__.py
-    │   │   ├── logger.py           # 日誌系統
     │   │   ├── config.py           # 配置管理
+    │   │   ├── docs.py             # Swagger 文檔生成
     │   │   └── swagger_setup.py    # Swagger 配置和啟動邏輯
     │   │
     │   ├── cli.py                  # 命令行工具
@@ -51,7 +50,7 @@
 
 
 
-
+# DDD
 
 
     your_project_name/
