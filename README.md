@@ -65,7 +65,10 @@
         ├── docs/                          # Swagger 文件
         │   └── swagger.yaml               # API 文檔規範 (自動生成)
         │
-        ├── .gitignore                    
+        ├── .gitignore    
+        ├── .python-version                # 指定 Python 版本
+        ├── .gitlab-ci.yml                # GitLab CI/CD 配置
+        ├── Dockerfile                     # Docker 配置文件
         ├── README.md                     
         ├── requirements.txt               # 依賴文件 (flask, sqlalchemy, swagger, requests 等)
         ├── setup.py                      
@@ -143,7 +146,10 @@
         ├── docs/                          # Swagger 文件
         │   └── swagger.yaml               # API 文檔規範 (自動生成)
         │
-        ├── .gitignore                    
+        ├── .gitignore    
+        ├── .python-version                # 指定 Python 版本
+        ├── .gitlab-ci.yml                # GitLab CI/CD 配置
+        ├── Dockerfile                     # Docker 配置文件                
         ├── README.md                     
         ├── requirements.txt               # 依賴文件 (flask, sqlalchemy, swagger, requests 等)
         ├── setup.py                      
