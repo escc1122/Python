@@ -65,6 +65,11 @@
     ├── your_project_name/          # 主程式碼目錄
     │   ├── __init__.py             
     │   │
+    ├── config/
+    │   ├── application_config.py        # 全局應用層配置
+    │   ├── domain_a_config.py           # 領域 A 的配置
+    │   └── domain_b_config.py           # 領域 B 的配置
+    │   │
     │   ├── domain/                 # 領域層 - 定義領域模型和業務邏輯
     │   │   ├── __init__.py
     │   │   ├── user/               # User 領域模型
