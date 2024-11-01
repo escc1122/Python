@@ -14,18 +14,21 @@
         │   ├── core/                   # 核心業務邏輯
         │   │   ├── __init__.py
         │   │   ├── services.py         # 核心業務邏輯
-        │   │   ├── third_party/        # 與第三方 API 的通訊邏輯目錄
-        │   │   │   ├── __init__.py
-        │   │   │   ├── api_one.py      # 第一個第三方 API 的通訊類
-        │   │   │   ├── api_two.py      # 第二個第三方 API 的通訊類
-        │   │   │   ├── responses/       # 固定的回應類
-        │   │   │   │   ├── __init__.py
-        │   │   │   │   ├── api_one_response.py  # 第一個 API 的回應類
-        │   │   │   │   └── api_two_response.py  # 第二個 API 的回應類
-        │   │   │   └── ...             # 更多的第三方 API
         │   │   ├── config.py           # 配置管理
-        │   │   └── logger.py           # 日誌系統
-        │   │
+        │   │   ├── logger.py           # 日誌系統
+        │   ├── third_party/
+        │   │   ├── api_one/
+        │   │   │   ├── __init__.py
+        │   │   │   ├── api_one.py
+        │   │   │   └── config.py  # 專用於 API One 的配置
+        │   │   ├── api_two/
+        │   │   │   ├── __init__.py
+        │   │   │   ├── api_two.py
+        │   │   │   └── config.py  # 專用於 API Two 的配置
+        │   │   └── responses/       # 固定的回應類
+        │   │       ├── __init__.py
+        │   │       ├── api_one_response.py  # 第一個 API 的回應類
+        │   │       └── api_two_response.py  # 第二個 API 的回應類
         │   ├── db/                     # 資料庫操作及遷移
         │   │   ├── __init__.py
         │   │   ├── repositories/       # 資料庫操作工具
