@@ -14,6 +14,7 @@
     │   │   ├── __init__.py
     │   │   ├── services.py         # 核心業務邏輯
     │   │   ├── third_party.py      # 與第三方 API 的通訊邏輯
+    │   │   ├── config.py           # 配置管理
     │   │   └── logger.py           # 日誌系統
     │   │
     │   ├── db/                     # 資料庫操作
@@ -24,7 +25,6 @@
     │   │
     │   ├── utils/                  # 工具類模組
     │   │   ├── __init__.py
-    │   │   ├── config.py           # 配置管理
     │   │   ├── docs.py             # Swagger 文檔生成
     │   │   └── swagger_setup.py    # Swagger 配置和啟動邏輯
     │   │
