@@ -1,59 +1,58 @@
 # Python
 
-    your_project_name/
-    │
-    ├── your_project_name/          # 主程式碼目錄
-    │   ├── __init__.py             
-    │   │
-    │   ├── api/                    # API 模組
-    │   │   ├── __init__.py
-    │   │   ├── routes.py           # 定義 API 端點 (Swagger 支持)
-    │   │   └── auth.py             # 認證和授權
-    │   │
-    │   ├── core/                   # 核心業務邏輯
-    │   │   ├── __init__.py
-    │   │   ├── services.py         # 核心業務邏輯
-    │   │   ├── third_party.py      # 與第三方 API 的通訊邏輯
-    │   │   ├── config.py           # 配置管理
-    │   │   └── logger.py           # 日誌系統
-    │   │
-    │   ├── db/                     # 資料庫操作
-    │   │   ├── __init__.py
-    │   │   ├── models.py           # ORM 模型定義
-    │   │   ├── migrations/         # 資料庫遷移
-    │   │   └── db_utils.py         # 資料庫操作工具
-    │   │
-    │   ├── utils/                  # 工具類模組
-    │   │   ├── __init__.py
-    │   │   ├── docs.py             # Swagger 文檔生成
-    │   │   └── swagger_setup.py    # Swagger 配置和啟動邏輯
-    │   │
-    │   ├── config/                 # 配置管理
-    │   │   ├── __init__.py
-    │   │   ├── base_config.py      # 基本配置
-    │   │   ├── development.py      # 開發環境配置
-    │   │   ├── production.py       # 生產環境配置
-    │   │   └── testing.py          # 測試環境配置
-    │   │
-    │   ├── cli.py                  # 命令行工具
-    │   └── app.py                  # 程式入口，啟動 API 服務
-    │
-    ├── tests/                      # 測試目錄
-    │   ├── __init__.py
-    │   ├── test_api/               # API 端點的測試
-    │   ├── test_core/              # 核心邏輯測試
-    │   ├── test_db/                # 資料庫操作測試
-    │   └── test_third_party.py     # 第三方 API 測試
-    │
-    ├── docs/                       # Swagger 文件
-    │   └── swagger.yaml            # API 文檔規範 (自動生成)
-    │
-    ├── .gitignore                  
-    ├── README.md                   
-    ├── requirements.txt            # 依賴文件 (flask, sqlalchemy, swagger, requests 等)
-    ├── setup.py                    
-    ├── pyproject.toml              
-    └── LICENSE    
+        your_project_name/
+        │
+        ├── your_project_name/
+        │   ├── __init__.py             
+        │   │
+        │   ├── api/                    # API 模組
+        │   │   ├── __init__.py
+        │   │   ├── routes.py           # 定義 API 端點 (Swagger 支持)
+        │   │   └── auth.py             # 認證和授權
+        │   │
+        │   ├── core/                   # 核心業務邏輯
+        │   │   ├── __init__.py
+        │   │   ├── services.py         # 核心業務邏輯
+        │   │   ├── third_party.py      # 與第三方 API 的通訊邏輯
+        │   │   ├── config.py           # 配置管理
+        │   │   └── logger.py           # 日誌系統
+        │   │
+        │   ├── db/                     # 資料庫操作及遷移
+        │   │   ├── __init__.py
+        │   │   ├── repositories/       # 資料庫操作工具
+        │   │   │   ├── __init__.py
+        │   │   │   ├── db_utils.py     # 資料庫操作工具
+        │   │   │   ├── models.py       # ORM 模型定義
+        │   │   │   └── ...
+        │   │   ├── migrations/         # 資料庫遷移
+        │   │       ├── versions/       # 存放各版本的遷移檔
+        │   │       └── ...
+        │   │
+        │   ├── utils/                  # 工具類模組
+        │   │   ├── __init__.py
+        │   │   ├── docs.py             # Swagger 文檔生成
+        │   │   └── swagger_setup.py    # Swagger 配置和啟動邏輯
+        │   │
+        │   ├── cli.py                  # 命令行工具
+        │   └── app.py                  # 程式入口，啟動 API 服務
+        │
+        ├── tests/                      # 測試目錄
+        │   ├── __init__.py
+        │   ├── test_api/               # API 端點的測試
+        │   ├── test_core/              # 核心邏輯測試
+        │   ├── test_db/                # 資料庫操作測試
+        │   └── test_third_party.py     # 第三方 API 測試
+        │
+        ├── docs/                       # Swagger 文件
+        │   └── swagger.yaml            # API 文檔規範 (自動生成)
+        │
+        ├── .gitignore                  
+        ├── README.md                   
+        ├── requirements.txt            # 依賴文件 (flask, sqlalchemy, swagger, requests 等)
+        ├── setup.py                    
+        ├── pyproject.toml              
+        └── LICENSE    
+
 
 
 
