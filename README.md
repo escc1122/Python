@@ -14,7 +14,15 @@
         │   ├── core/                   # 核心業務邏輯
         │   │   ├── __init__.py
         │   │   ├── services.py         # 核心業務邏輯
-        │   │   ├── third_party.py      # 與第三方 API 的通訊邏輯
+        │   │   ├── third_party/        # 與第三方 API 的通訊邏輯目錄
+        │   │   │   ├── __init__.py
+        │   │   │   ├── api_one.py      # 第一個第三方 API 的通訊類
+        │   │   │   ├── api_two.py      # 第二個第三方 API 的通訊類
+        │   │   │   ├── responses/       # 固定的回應類
+        │   │   │   │   ├── __init__.py
+        │   │   │   │   ├── api_one_response.py  # 第一個 API 的回應類
+        │   │   │   │   └── api_two_response.py  # 第二個 API 的回應類
+        │   │   │   └── ...             # 更多的第三方 API
         │   │   ├── config.py           # 配置管理
         │   │   └── logger.py           # 日誌系統
         │   │
