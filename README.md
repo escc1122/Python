@@ -28,6 +28,13 @@
     │   │   ├── docs.py             # Swagger 文檔生成
     │   │   └── swagger_setup.py    # Swagger 配置和啟動邏輯
     │   │
+    │   ├── config/                 # 配置管理
+    │   │   ├── __init__.py
+    │   │   ├── base_config.py      # 基本配置
+    │   │   ├── development.py      # 開發環境配置
+    │   │   ├── production.py       # 生產環境配置
+    │   │   └── testing.py          # 測試環境配置
+    │   │
     │   ├── cli.py                  # 命令行工具
     │   └── app.py                  # 程式入口，啟動 API 服務
     │
