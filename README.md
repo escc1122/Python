@@ -8,6 +8,7 @@
         │   ├── api/                    # API 模組
         │   │   ├── __init__.py
         │   │   ├── routes.py           # 定義 API 端點 (Swagger 支持)
+        │   │   ├── responses.py        # 放置回傳格式的類
         │   │   └── auth.py             # 認證和授權
         │   │
         │   ├── core/                   # 核心業務邏輯
