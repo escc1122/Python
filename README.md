@@ -20,6 +20,8 @@
         │   ├── core/                      # 核心業務邏輯
         │   │   ├── __init__.py
         │   │   ├── services.py            # 核心業務邏輯
+        │   │   ├── errors.py              # 自定義錯誤
+        │   │   ├── scheduler.py           # 排程
         │   │   ├── config.py              # 配置管理
         │   │   ├── logger.py              # 日誌系統
         │   │   └── third_party/
