@@ -1,16 +1,14 @@
 # request_handler.py
-import logging
 import time
-from context import request_id_var  # 從 context.py 中導入 request_id_var
+from logging_context import get_logger
 
-# 設定日誌配置
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# 獲取帶有 request_id 格式化的 logger
+logger = get_logger(__name__)
 
 
 def handle_request():
-    request_id = request_id_var.get()  # 從 contextvar 獲取請求 ID
-    logging.info(f"Handling request with ID: {request_id}")
+    logger.info("Handling request")
 
     # 模擬請求處理
     time.sleep(1)  # 模擬處理時間
-    logging.info(f"Request {request_id} handled successfully.")
+    logger.info("Request handled successfully.")
