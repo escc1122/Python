@@ -1,4 +1,5 @@
 from .ali import AliService
+from .singleton import Singleton
 from .tencent import TencentService
 from .service_interface import CloudServiceInterface
 from enum import Enum
@@ -7,6 +8,7 @@ from enum import Enum
 class ServiceProvider(Enum):
     ALI = "ali"
     TENCENT = "tencent"
+    SINGLETON = "singleton"
 
 class CloudServiceFactory:
     @staticmethod
@@ -25,5 +27,8 @@ class CloudServiceFactory:
             return AliService("Ali Cloud Service")
         elif service_provider == ServiceProvider.TENCENT:
             return TencentService("Tencent Cloud Service")
+        elif service_provider == ServiceProvider.SINGLETON:
+            Singleton("Singleton Cloud Service")
+            return Singleton("test Singleton")
         else:
             raise ValueError(f"Unknown service provider: {service_provider}")
