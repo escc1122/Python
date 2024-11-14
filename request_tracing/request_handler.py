@@ -12,3 +12,5 @@ def handle_request():
     # 模擬請求處理
     time.sleep(1)  # 模擬處理時間
     logger.info("Request handled successfully.")
+
+    logger.error("Request handled error")

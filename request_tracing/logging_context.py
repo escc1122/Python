@@ -44,6 +44,7 @@ def get_logger(name: str = __name__, request_id: str = None):
         handler.setFormatter(formatter)
         logger.addHandler(handler)
         logger.setLevel(logging.INFO)
+        logger.propagate = True
 
         # 添加 request_id 過濾器
         logger.addFilter(RequestIdFilter())
