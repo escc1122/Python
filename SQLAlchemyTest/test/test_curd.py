@@ -39,6 +39,10 @@ def test_create(db_session):
     assert db_user.name == "Test User"
     assert db_user.email == "test@example.com"
 
+    # 刪除測試數據
+    db_session.query(Users).filter(Users.email == "test@example.com").delete()
+    db_session.commit()
+
 
 def test_select(db_session):
     # 插入測試數據
@@ -71,22 +75,22 @@ def test_select(db_session):
 
 
 def test_update(db_session):
-    user = Users(name="Alice", email="alice@example.com")
+    user = Users(name="update", email="update@example.com")
 
     db_session.add(user)
     db_session.commit()
     db_session.refresh(user)  # 確保將變更刷新到內存
 
     # 改變 user 的名稱並更新
-    user.name = "Updated Alice"
+    user.name = "Updated update"
 
     # 使用 update 函數進行更新
     updated_user = update(db_session, user)
 
     # 驗證更新是否成功
     db_session.refresh(updated_user)  # 確保從數據庫加載最新的數據
-    assert updated_user.name == "Updated Alice"  # 驗證名稱是否更新
-    assert updated_user.email == "alice@example.com"  # 驗證其他屬性沒有變化
+    assert updated_user.name == "Updated update"  # 驗證名稱是否更新
+    assert updated_user.email == "update@example.com"  # 驗證其他屬性沒有變化
 
     # 刪除測試數據
     db_session.delete(updated_user)  # 刪除更新過的 user
@@ -95,23 +99,32 @@ def test_update(db_session):
 
 def test_delete(db_session):
     # 插入測試數據
-    user1 = Users(name="Alice", email="alice@example.com")
-    user2 = Users(name="Bob", email="bob@example.com")
+    user1 = Users(name="delete", email="delete@example.com")
+    user2 = Users(name="delete2", email="delete2@example.com")
     db_session.add(user1)
     db_session.add(user2)
     db_session.commit()
 
     # 測試有條件的刪除
-    delete_user = Users(name="Alice")  # 這個條件應該匹配 user1
+    delete_user = Users(name="delete")  # 這個條件應該匹配 user1
     deleted_users = delete(db_session, delete_user)
 
     # 驗證刪除結果
     assert len(deleted_users) == 1  # 確保刪除了一個用戶
-    assert deleted_users[0].name == "Alice"  # 確保刪除的用戶是 Alice
+    assert deleted_users[0].name == "delete"  # 確保刪除的用戶是 Alice
 
     # 確認數據庫中 Alice 用戶已被刪除
-    user_in_db = db_session.query(Users).filter(Users.name == "Alice").first()
+    user_in_db = db_session.query(Users).filter(Users.name == "delete").first()
     assert user_in_db is None  # 確保用戶不再存在
+
+    user_in_db = db_session.query(Users).filter(Users.name == "delete2").first()
+    assert user_in_db is not None  # 確保用戶存在
+
+    # 刪除測試數據
+    db_session.query(Users).filter(Users.email == "delete2@example.com").delete()
+    db_session.commit()
+
+
 
 
 def test_delete_exception(db_session):
