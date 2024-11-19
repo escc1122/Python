@@ -1,5 +1,5 @@
 from typing import TypeVar, List
-from sqlalchemy.orm import Session, Query
+from sqlalchemy.orm import Session, Query, DeclarativeMeta
 
 
 class DeleteException(Exception):
@@ -7,7 +7,7 @@ class DeleteException(Exception):
         super().__init__(message)
         self.code = code
 
-T = TypeVar('T')
+T = TypeVar('T', bound=DeclarativeMeta)
 
 def create(db: Session, model: T) -> T:
     db.add(model)
