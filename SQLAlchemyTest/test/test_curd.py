@@ -73,7 +73,7 @@ def test_select(db_session):
     users = select(db_session, cond_model, 0, 1)
     assert len(users) == 1
 
-    users = select(db_session, Users)
+    users = select(db_session, Users())
     assert len(users) == 3
 
     # 刪除測試數據

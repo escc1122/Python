@@ -7,7 +7,9 @@ class DeleteException(Exception):
         super().__init__(message)
         self.code = code
 
+
 T = TypeVar('T', bound=DeclarativeMeta)
+
 
 def create(db: Session, model: T) -> T:
     db.add(model)
@@ -32,28 +34,29 @@ def select(db: Session, model: T, skip: int = None, limit: int = None) -> List[T
     return models
 
 
-def update(db: Session, model: T):
+def update(db: Session, model: T) -> T:
     db.commit()
     db.refresh(model)
     return model
 
 
-def delete(db: Session, model: T)->List[T]:
+def delete(db: Session, model: T) -> List[T]:
     # 確保傳入的是模型的實例，而不是類
     if isinstance(model, type):
         raise DeleteException("不允許不帶條件刪除，必須傳入實例")
 
     filters = _get_filters_from_instance(model)
-    if len(filters)==0:
+    if len(filters) == 0:
         raise DeleteException("不允許不帶條件刪除")
 
-    delete_models = select(db,model)
+    delete_models = select(db, model)
 
     for d in delete_models:
         db.delete(d)
 
     db.commit()
     return delete_models
+
 
 def _get_filters_from_instance(model: T) -> {}:
     model_class = model.__mapper__.class_
