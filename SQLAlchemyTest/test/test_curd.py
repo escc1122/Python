@@ -1,23 +1,31 @@
 import pytest
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
-from SQLAlchemyTest.db import get_engine
-
-from SQLAlchemyTest.models.users_model import Users
+from SQLAlchemyTest.models.users_model import Users, Base
 from SQLAlchemyTest.repositories.curd import create, select, _get_filters_from_instance, update, delete, DeleteException
 
 
-# 測試用的資料庫設定
+# 用來獲取 SQLite 3 引擎
+def get_engine():
+    return create_engine("sqlite:///:memory:", echo=False)  # 使用內存中的 SQLite 資料庫
+
+
 @pytest.fixture
 def db_session():
     engine = get_engine()
     TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+    # 創建所有表格
+    Base.metadata.create_all(bind=engine)
+
     db = TestingSessionLocal()
     try:
         yield db
     except Exception as e:
         print(f"Unexpected error: {e}")  # 處理其他異常
     finally:
+        # 測試結束後刪除所有表格
+        Base.metadata.drop_all(bind=engine)
         db.close()
 
 
