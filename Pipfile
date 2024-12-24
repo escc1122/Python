@@ -12,6 +12,8 @@ pytest-playwright = "*"
 jira = "*"
 fastapi = "*"
 uvicorn = "*"
+retry = "*"
+pytest-mock = "*"
 
 [dev-packages]
 
