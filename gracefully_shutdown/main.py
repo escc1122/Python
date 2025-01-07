@@ -45,6 +45,7 @@ from threading import Thread
 from typing import Optional
 
 import uvicorn
+from apscheduler.schedulers.background import BackgroundScheduler
 from fastapi import FastAPI
 
 from gracefully_shutdown.c_queue.queue_factory import QueueFactory
@@ -66,6 +67,7 @@ app = FastAPI(lifespan=lifespan)
 
 # 創建隊列
 queue = QueueFactory.create_queue("in_memory")
+scheduler = BackgroundScheduler()
 
 
 # 生產者函數
@@ -110,6 +112,8 @@ def shutdown():
     print("Received shutdown signal, gracefully shutting down...")
     StopSignal.set(False)
     QueueFactory.stop()
+    global scheduler
+    scheduler.shutdown()
 
 
 # @app.on_event("startup")
@@ -125,7 +129,18 @@ def startup_event():
     producer_thread.start()
     consumer_thread.start()
     consumer_thread2.start()
-    print("Producer and Consumer threads started.")
+
+    # Create scheduler instance
+    global scheduler
+    scheduler = BackgroundScheduler()
+
+    # Add a job to the scheduler
+    scheduler.add_job(my_job, 'interval', seconds=30)
+
+    # Start the scheduler
+    scheduler.start()
+
+    print("Starting scheduler")
 
 
 # @app.on_event("shutdown")
@@ -152,17 +167,10 @@ def read_root():
     return {"message": "FastAPI Queue Example Running"}
 
 
-#
-# @app.post("/add-item/{item}")
-# def add_item(item: str):
-#     queue.put(item)
-#     return {"message": f"Item '{item}' added to queue."}
-#
-#
-# @app.get("/stop")
-# def stop():
-#     StopSignal.set(True)
-#     return {"message": "Stop signal sent."}
+def my_job():
+    print("Job is running...")
+    time.sleep(20)
+    print("Job is end...")
 
 
 if __name__ == "__main__":
