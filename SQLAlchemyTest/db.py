@@ -73,19 +73,6 @@ def get_engine():
     # 確保在需要時使用單例引擎
     return MySQLSingletonEngine()
 
-
-def get_session_factory() -> sessionmaker:
-    """
-    返回一個與 MySQL 引擎綁定的 session 工廠。
-
-    Args:
-        None
-
-    Returns:
-        sessionmaker: 可以用來創建新 session 的 session 工廠。
-    """
-    return sessionmaker(bind=get_engine())
-
 @contextmanager
 @retry(OperationalError, tries=3, delay=5)
 def get_session() -> Session:
@@ -102,18 +89,22 @@ def get_session() -> Session:
     Raises:
         OperationalError: 當資料庫連線中斷時，會重試 3 次。
     """
-    session_factory = get_session_factory()
-    session = session_factory()
+    Session = sessionmaker(bind=get_engine())
+    session = Session()
     try:
-        yield session  # 返回 session 以供 with 區塊使用
+        yield session # 返回 session 以供 with 區塊使用
     except OperationalError as e:
         print(f"資料庫連線中斷，重試中... {e}")
         raise  # 重新拋出異常以便 retry 處理
     finally:
         # 關閉 session
         if session:
+            print(session.bind)
+
             session.close()
             print("Session 已關閉")
+            print(session.bind)
+
 
 @retry(OperationalError, tries=3, delay=5)
 def get_connection():
@@ -136,6 +127,9 @@ def get_connection():
     except OperationalError as e:
         print(f"資料庫連線中斷，重試中... {e}")
         raise  # 重新拋出異常以便 retry 處理
+    except Exception as e:
+        print(f"{e}")
+        raise
     finally:
         # 關閉 connection
         if connection:

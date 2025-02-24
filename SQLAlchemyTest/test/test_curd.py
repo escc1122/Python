@@ -1,16 +1,18 @@
 import pytest
+from pydantic import BaseModel
+from requests import session
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 from SQLAlchemyTest import db
-from SQLAlchemyTest.db import get_session
 from SQLAlchemyTest.models.users_model import Users, Base
-from SQLAlchemyTest.repositories.curd import create, select, _get_filters_from_instance, update, delete, DeleteException
+from SQLAlchemyTest.repositories.curd import create, select, _get_filters_from_instance, update, delete, \
+    DeleteException, _get_filters_from_pydantic, select_from_pydantic
 
 
 # 用來獲取 SQLite 3 引擎
 def get_engine():
     return create_engine("sqlite:///:memory:", echo=True)  # 使用內存中的 SQLite 資料庫
+
 
 @pytest.fixture(autouse=True)
 def before_setup(mocker):
@@ -18,6 +20,7 @@ def before_setup(mocker):
     engine = db.get_engine()
     # 創建所有表格
     Base.metadata.create_all(bind=engine)
+
 
 @pytest.fixture
 def get_mock_session():
@@ -132,8 +135,6 @@ def test_delete(get_mock_session):
         db_session.commit()
 
 
-
-
 def test_delete_exception(get_mock_session):
     with get_mock_session() as db_session:
         # 測試不帶條件的刪除會拋出異常
@@ -168,3 +169,49 @@ def test_get_filters_from_instance2():
     }
 
     assert filters == expected_filters, f"測試失敗！結果: {filters}, 預期: {expected_filters}"
+
+
+# 定義 Pydantic 模型
+class UserPydantic(BaseModel):
+    name: str = None
+    email: str = None
+
+    class Config:
+        orm_mode = True
+
+
+def test_get_filters_from_pydantic():
+    # 創建 Pydantic 模型實例
+    pydantic_data = UserPydantic(name="Alice", email="alice@example.com")
+
+    # 呼叫 _get_filters_from_pydantic 函數來獲得過濾條件
+    filters = _get_filters_from_pydantic(Users, pydantic_data)
+
+    # 測試過濾條件的結果是否符合預期
+    assert len(filters) == 2  # 應該有 2 個過濾條件: name 和 email
+    assert filters[Users.name] == "Alice"
+    assert filters[Users.email] == "alice@example.com"
+
+
+def test_select_from_pydantic(get_mock_session):
+    with get_mock_session() as db_session:
+        # 插入測試數據
+        user1 = Users(name="Alice", email="alice@example.com")
+        user2 = Users(name="Alice", email="bob@example.com")
+        user3 = Users(name="test", email="alice@example.com")
+        db_session.add(user1)
+        db_session.add(user2)
+        db_session.add(user3)
+        db_session.commit()
+
+    pydantic_data = UserPydantic(name="Alice", email="alice@example.com")
+
+    users = select_from_pydantic(db_session, Users(), pydantic_data)
+
+    assert len(users) == 1
+
+    pydantic_data = UserPydantic(name="Alice")
+
+    users = select_from_pydantic(db_session, Users(), pydantic_data)
+
+    assert len(users) == 2
