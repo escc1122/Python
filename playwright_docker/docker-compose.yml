@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  update-site:
+    image: playwright_docker
+    container_name: playwright_docker
+    env_file:
+      - .env
+    volumes:
+      - ./main.py:/app/main.py
+      - ./site_urls.txt:/app/site_urls.txt
+      - ./logs:/app/logs
+    command: ["python", "main.py"]
+    restart: "no"  # 不重啟
